@@ -1,61 +1,46 @@
-#include <pcre.h>
+#include <regex.h>
 #include <stdio.h>
 #include <libnotify/notify.h>
 
-#define MATCH_COUNT 30    /* should be a multiple of 3 */
-
-pcre *regex;
-const char *error;
-int erroffset;
 char *program_name;
 
-int matches[MATCH_COUNT];
-
 int main(int argc, char **argv) {
+	regex_t regex;
 	char *line = NULL;
-	int line_length;
 	size_t size;
+	int reti;
 
-	regex = pcre_compile(
-		argv[1],              /* the pattern */
-		0,                    /* default options */
-		&error,               /* for error message */
-		&erroffset,           /* for error offset */
-		NULL);                /* use default character tables */
+	if (argc < 2) {
+		fprintf(stderr, "At least one argument must be provided\n");
+		return 1;
+	}
+
+	reti = regcomp(&regex, argv[1], 0);
+	if (reti) {
+		fprintf(stderr, "Could not compile regex\n");
+		return 1;
+	}
 
 	program_name = (argc > 2) ? argv[2] : "Grep Notify";
 
 	notify_init(program_name);
 
-	while ((line_length = getline(&line, &size, stdin)) != -1) {
-		if (line_match(line, line_length) > -1) {
+	while (getline(&line, &size, stdin) != -1) {
+		if (!regexec(&regex, line, 0, NULL, 0)) {
 			notify(line);
 		}
 
-		printf("%s", line);
+		fprintf(stdout, line);
 	}
 
 	notify_uninit();
-
-	pcre_free(regex);
+	regfree(&regex);
 
 	return 0;
 }
 
 void notify(message) {
-	NotifyNotification* Hello = notify_notification_new(program_name, message, "dialog-information");
-	notify_notification_show(Hello, NULL);
-	g_object_unref(G_OBJECT(Hello));
-}
-
-int line_match(line, line_length) {
-	pcre_exec(
-	  regex,             /* the compiled pattern */
-	  NULL,              /* no extra data ‐ we didn’t study the pattern */
-	  line,              /* the subject string */
-	  line_length,       /* the length of the subject */
-	  0,                 /* start at offset 0 in the subject */
-	  0,                 /* default options */
-	  matches,           /* output vector for substring information */
-	  MATCH_COUNT);      /* number of elements in the output vector */
+	NotifyNotification* notification = notify_notification_new(program_name, message, "dialog-information");
+	notify_notification_show(notification, NULL);
+	g_object_unref(G_OBJECT(notification));
 }
