@@ -7,7 +7,7 @@ char *program_name;
 int main(int argc, char **argv) {
 	regex_t regex;
 	char *line = NULL;
-	size_t size;
+	size_t size = 0;
 	int reti;
 
 	if (argc < 2) {
@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
 		fprintf(stdout, line);
 	}
 
+	free(line);
 	notify_uninit();
 	regfree(&regex);
 
