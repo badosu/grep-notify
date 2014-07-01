@@ -1,10 +1,10 @@
 PREFIX    = /usr/local
 
-LIBS = -lnotify -lgdk_pixbuf-2.0 -lgio-2.0 -lgobject-2.0 -lglib-2.0
+LIBS = $(shell pkg-config --libs --cflags libnotify)
 SRC = grep-notify.c
 
 all:
-	gcc -o grep-notify -pthread -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/libpng16 -I/usr/include/glib-2.0 -I/usr/lib/glib-2.0/include $(LIBS) $(SRC)
+	gcc -o grep-notify $(LIBS) $(SRC)
 
 clean:
 	rm -rf *o grep-notify
