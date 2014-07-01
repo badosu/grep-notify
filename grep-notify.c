@@ -5,7 +5,7 @@
 
 char *program_name;
 
-void notify(message) {
+void notify(char * message) {
 	NotifyNotification* notification = notify_notification_new(program_name, message, "dialog-information");
 	notify_notification_show(notification, NULL);
 	g_object_unref(G_OBJECT(notification));
