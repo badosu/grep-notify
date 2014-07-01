@@ -1,8 +1,15 @@
+#include <stdlib.h>
 #include <regex.h>
 #include <stdio.h>
 #include <libnotify/notify.h>
 
 char *program_name;
+
+void notify(char * message) {
+	NotifyNotification* notification = notify_notification_new(program_name, message, "dialog-information");
+	notify_notification_show(notification, NULL);
+	g_object_unref(G_OBJECT(notification));
+}
 
 int main(int argc, char **argv) {
 	regex_t regex;
@@ -40,8 +47,3 @@ int main(int argc, char **argv) {
 	return 0;
 }
 
-void notify(message) {
-	NotifyNotification* notification = notify_notification_new(program_name, message, "dialog-information");
-	notify_notification_show(notification, NULL);
-	g_object_unref(G_OBJECT(notification));
-}
