@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <regex.h>
 #include <stdio.h>
 #include <libnotify/notify.h>
