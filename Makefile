@@ -1,4 +1,4 @@
-PREFIX    = /usr/local
+PREFIX	:= /usr/local
 
 LIBS = $(shell pkg-config --libs --cflags libnotify)
 SRC = grep-notify.c
