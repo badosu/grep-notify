@@ -1,7 +1,7 @@
 Grep-Notify
 ===========
 
-Reads from stdout and `notify-send` lines matched via regex
+Reads from stdin and `notify-send` lines matched via regex
 
 ## Usage
 
