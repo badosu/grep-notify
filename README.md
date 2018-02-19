@@ -1,10 +1,6 @@
 Grep-Notify
 ===========
 
-Reads from stdin and `notify-send` lines matched via regex
-
-## Usage
-
 ```
 Usage: grep-notify [-k] [-u URGENCY] [PATTERN] [TITLE]
 
