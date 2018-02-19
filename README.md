@@ -6,7 +6,7 @@ Reads from stdout and `notify-send` lines matched via regex
 ## Usage
 
 ```
-Usage: ./grep-notify [-k] [-u URGENCY] [PATTERN] [TITLE]
+Usage: grep-notify [-k] [-u URGENCY] [PATTERN] [TITLE]
 
 DESCRIPTION
   grep-notify searches for PATTERN from STDIN and sends a notification
