@@ -5,9 +5,11 @@
 #include <stdio.h>
 #include <libnotify/notify.h>
 
-char *program_name;
+char *program_name = "Grep Notify";
+NotifyUrgency urgency = NOTIFY_URGENCY_NORMAL;
+int keep_stdout = false;
 
-void notify(char * message, NotifyUrgency urgency) {
+void notify(char * message) {
 	NotifyNotification* notification = notify_notification_new(program_name, message, "dialog-information");
 	notify_notification_set_urgency(notification, urgency);
 	notify_notification_show(notification, NULL);
@@ -26,15 +28,15 @@ void print_usage(char * program) {
 }
 
 int main(int argc, char **argv) {
-	NotifyUrgency urgency = NOTIFY_URGENCY_NORMAL;
-	int keep_stdout = false;
 	size_t optind;
 	for (optind = 1; optind < argc && argv[optind][0] == '-'; optind++) {
 		switch (argv[optind][1]) {
 		case 'k': keep_stdout = true; break;
 		case 'u':
 			if (argc == optind + 1) { break; }
+
 			optind++;
+
 			if (strcmp(argv[optind], "low") == 0) {
 				urgency = NOTIFY_URGENCY_LOW;
 			}
@@ -73,7 +75,9 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 
-	program_name = (argv[optind+1]) ? argv[optind+1] : "Grep Notify";
+	if (argv[optind+1]) {
+		program_name = argv[optind+1];
+	}
 
 	notify_init(program_name);
 
@@ -82,7 +86,7 @@ int main(int argc, char **argv) {
 			if (!keep_stdout) {
 				printf(line);
 			}
-			notify(line, urgency);
+			notify(line);
 		}
 		if (keep_stdout) {
 			printf(line);
