@@ -33,6 +33,7 @@ int main(int argc, char **argv) {
 		switch (argv[optind][1]) {
 		case 'k': keep_stdout = true; break;
 		case 'u':
+			if (argc == optind + 1) { break; }
 			optind++;
 			if (strcmp(argv[optind], "low") == 0) {
 				urgency = NOTIFY_URGENCY_LOW;
