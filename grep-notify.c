@@ -34,10 +34,9 @@ int main(int argc, char **argv) {
 
 	while (getline(&line, &size, stdin) != -1) {
 		if (!regexec(&regex, line, 0, NULL, 0)) {
+			fprintf(stdout, line);
 			notify(line);
 		}
-
-		fprintf(stdout, line);
 	}
 
 	free(line);
