@@ -4,7 +4,7 @@ LIBS = $(shell pkg-config --libs --cflags libnotify)
 SRC = grep-notify.c
 
 all:
-	gcc -o grep-notify $(LIBS) $(SRC)
+	gcc -o grep-notify $(SRC) $(LIBS)
 
 clean:
 	rm -rf *o grep-notify
