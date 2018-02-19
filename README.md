@@ -1,7 +1,7 @@
 Grep-Notify
 ===========
 
-Reads stdout from a program and `notify-send` whole line if the regex matches.
+Reads from stdout and `notify-send` lines matched with `regex.h`
 
 Example:
 
