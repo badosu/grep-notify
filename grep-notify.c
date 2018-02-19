@@ -15,7 +15,7 @@ void notify(char * message, NotifyUrgency urgency) {
 }
 
 void print_usage(char * program) {
-	printf("Usage: %s [-k] [-u URGENCY] [PATTERN] [TITLE]\n\n", program);
+	printf("Usage: %s [-k] [-u URGENCY] PATTERN [TITLE]\n\n", program);
 	puts("DESCRIPTION");
 	puts("  grep-notify searches for PATTERN from STDIN and sends a notification");
 	puts("  whenever it's matched.  If no TITLE is given, the notification title");
