@@ -2,7 +2,7 @@ Grep-Notify
 ===========
 
 ```
-Usage: grep-notify [-k] [-u URGENCY] [PATTERN] [TITLE]
+Usage: grep-notify [-k] [-u URGENCY] PATTERN [TITLE]
 
 DESCRIPTION
   grep-notify searches for PATTERN from STDIN and sends a notification
